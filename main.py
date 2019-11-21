@@ -44,8 +44,11 @@ while game_loop:
         if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             game_loop = False
     
-    # level = Level(LVL_LABYRINTH)
-    # level.read_level()
+    level = Level(LVL_LABYRINTH)
+    level.read_level()
+    level.gen_level(main_window)
+
+    pygame.display.flip()
         
 
 
