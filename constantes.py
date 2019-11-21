@@ -6,6 +6,7 @@ TILE_SIZE = 32
 
 TITLE_WINDOW = "MacGyver : The Labyrinth"
 
+LVL_LABYRINTH = "./level/level_1.lvl"
 
 # Ressources
 sprite_player = "./ressources/proto/player.png"

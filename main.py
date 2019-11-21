@@ -24,7 +24,6 @@
 import pygame
 
 from pygame.locals import *
-
 from constantes import *
 from classes import *
 
@@ -36,7 +35,7 @@ main_window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # Pygame Main Window Custom
 pygame.display.set_caption(TITLE_WINDOW)
 
-# Main Loop (GameLoop)
+# Main Loop (Game Loop)
 game_loop = True
 while game_loop:
 
@@ -44,6 +43,10 @@ while game_loop:
         # If player want to quit the game, game_loop = False
         if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             game_loop = False
+    
+    # level = Level(LVL_LABYRINTH)
+    # level.read_level()
+        
 
 
 
