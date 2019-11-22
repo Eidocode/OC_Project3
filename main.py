@@ -45,7 +45,6 @@ while game_loop:
             game_loop = False
     
     level = Level(LVL_LABYRINTH)
-    level.read_level()
     level.gen_level(main_window)
 
     pygame.display.flip()

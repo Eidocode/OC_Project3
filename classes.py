@@ -10,7 +10,8 @@ class Level:
         self.file = file
         self.level_structure = []
 
-    def read_level(self):
+    @property
+    def _read_level(self):
         # Get file content (*.lvl) and stock in a list (file_content)
         with open(self.file, "r") as file:
             file_content = []
@@ -26,9 +27,12 @@ class Level:
                 # add line to file_content
                 file_content.append(line_content)
         # Save level_structure
-        self.level_structure = file_content
+        return file_content
     
     def gen_level(self, window):
+        # Apply _read_level to level_structure
+        self.level_structure = self._read_level
+
         # Init. tile position (x, y)
         tile_x = 0
         tile_y = 0
