@@ -5,7 +5,7 @@
         Commencez par créer le labyrinthe sans l’interface graphique. Quand la logique de votre labyrinthe est faite, 
     utilisez le module PyGame pour dessiner l’interface graphique.
         Puis intéressez-vous aux trois éléments principaux du jeu : le gardien, MacGyver et les objets. Comment les représenter dans votre programme ? 
-    Où sont-ils placés au commencement du jeu ?  
+    Où sont-ils placés au commencement du jeu ? 
 
     2 - Animer le personnage
 
@@ -24,7 +24,7 @@
 import pygame
 
 from pygame.locals import *
-from constantes import *
+from constants import *
 from classes import *
 
 pygame.init()
@@ -35,22 +35,35 @@ main_window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # Pygame Main Window Custom
 pygame.display.set_caption(TITLE_WINDOW)
 
+# Create level structure
+level = Level(LVL_LABYRINTH)
+# Create Player
+player = Player(sprite_player, level)
+
 # Main Loop (Game Loop)
 game_loop = True
 while game_loop:
+    
+    level.gen_level(main_window)
+    main_window.blit(player.sprite, (player.x, player.y))
+
+    # --- Debug ---
+    #print('px : ' + str(player.x) + ', ' + str(player.y))
+    #print('index : ' + str(player.index_x) + ', ' + str(player.index_y))
 
     for event in pygame.event.get():
         # If player want to quit the game, game_loop = False
         if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             game_loop = False
-    
-    level = Level(LVL_LABYRINTH)
-    level.gen_level(main_window)
+        
+        if event.type == KEYDOWN:
+            if event.key == K_RIGHT:
+                player.move('right')
+            if event.key == K_LEFT:
+                player.move('left')
+            if event.key == K_UP:
+                player.move('up')
+            if event.key == K_DOWN:
+                player.move('down')
 
     pygame.display.flip()
-        
-
-
-
-
-
