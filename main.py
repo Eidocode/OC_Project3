@@ -37,8 +37,11 @@ pygame.display.set_caption(TITLE_WINDOW)
 
 # Create level structure
 level = Level(LVL_LABYRINTH)
+level.gen_level(main_window)
 # Create Player
-player = Player(sprite_player, level)
+player = Player(sprite_player, level, level.begin_position)
+# Create Guardian
+guard = Guardian(sprite_guard, level, level.end_position)
 
 # Main Loop (Game Loop)
 game_loop = True
@@ -46,10 +49,11 @@ while game_loop:
     
     level.gen_level(main_window)
     main_window.blit(player.sprite, (player.x, player.y))
+    main_window.blit(guard.sprite, (guard.x, guard.y))
 
     # --- Debug ---
-    #print('px : ' + str(player.x) + ', ' + str(player.y))
-    #print('index : ' + str(player.index_x) + ', ' + str(player.index_y))
+    # print('px : ' + str(guard.x) + ', ' + str(guard.y))
+    # print('index : ' + str(guard.index_x) + ', ' + str(guard.index_y))
 
     for event in pygame.event.get():
         # If player want to quit the game, game_loop = False
