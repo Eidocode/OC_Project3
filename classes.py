@@ -92,6 +92,7 @@ class Character:
 class Player(Character):
     def __init__(self, sprite, level, position):
         super().__init__(sprite, level, position)
+<<<<<<< HEAD
     
     @property
     def right_border_collision(self): # Test if player collide with screen right border
@@ -145,6 +146,56 @@ class Player(Character):
                 self.y += TILE_SIZE  # move on next tile (vertical)
             elif direction == 'up':
                 self.y -= TILE_SIZE  # move on previous tile (vertical)
+=======
+    
+    def test_collision(self, direction):
+        not_collide = False
+        # Check direction
+        if direction == 'right':
+            # Prevents Player from moving out of the screen
+            if self.index_x < self.length_struct_x - 1:
+                # Check if next tile is not a wall (horizontal)
+                if self.level.structure[self.index_y][self.index_x + 1] != 'w':
+                    # No Collision
+                    not_collide = True
+        elif direction == 'left':
+            if self.index_x > 0:
+                if self.level.structure[self.index_y][self.index_x - 1] != 'w':
+                    not_collide = True
+        elif direction == 'down':
+            if self.index_y < self.length_struct_y - 1:
+                # Check if next tile is not a wall (vertical)
+                if self.level.structure[self.index_y + 1][self.index_x] != 'w':
+                    # No Collision
+                    not_collide = True
+        elif direction == 'up':
+            if self.index_y > 0:
+                if self.level.structure[self.index_y - 1][self.index_x] != 'w':
+                    not_collide = True
+        else:
+            # Collision
+            not_collide = False
+        # Return not_collide state
+        return not_collide
+
+    def move(self, direction):
+        test_collision = self.test_collision(direction)
+        # Check direction
+        if test_collision:
+            if direction == 'right':
+                # move on next tile (horizontal)
+                self.x += TILE_SIZE
+            elif direction == 'left':
+                # move on previous tile (horizontal)
+                self.x -= TILE_SIZE
+            elif direction == 'down':
+                # move on next tile (vertical)
+                self.y += TILE_SIZE
+            elif direction == 'up':
+                # move on previous tile (horizontal)
+                self.y -= TILE_SIZE
+        
+>>>>>>> 60ff10b44ad6f6b079c5aedd9748fcf2247e4a83
         self.index_x = int(self.x / TILE_SIZE)
         self.index_y = int(self.y / TILE_SIZE)
 
