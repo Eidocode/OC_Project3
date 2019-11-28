@@ -22,6 +22,7 @@
 """
 
 import pygame
+import random
 
 from pygame.locals import *
 from constants import *
@@ -59,15 +60,13 @@ while game_loop:
         # If player want to quit the game, game_loop = False
         if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             game_loop = False
-        
+
         if event.type == KEYDOWN:
-            if event.key == K_RIGHT:
-                player.move('right')
-            if event.key == K_LEFT:
-                player.move('left')
-            if event.key == K_UP:
-                player.move('up')
-            if event.key == K_DOWN:
-                player.move('down')
+            if event.key == K_RIGHT: player.move('right')
+            if event.key == K_LEFT: player.move('left')
+            if event.key == K_UP: player.move('up')
+            if event.key == K_DOWN: player.move('down')
+
+        
 
     pygame.display.flip()
