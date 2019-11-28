@@ -44,13 +44,23 @@ player = Player(sprite_player, level, level.begin_position)
 # Create Guardian
 guard = Guardian(sprite_guard, level, level.end_position)
 
+item1 = Item('tube',level)
+item1.create()
+item2 = Item('produit',level)
+item2.create()
+item3 = Item('aiguille',level)
+item3.create()
+
 # Main Loop (Game Loop)
 game_loop = True
 while game_loop:
     
     level.gen_level(main_window)
-    main_window.blit(player.sprite, (player.x, player.y))
+    main_window.blit(item1.sprite, (item1.position))
+    main_window.blit(item2.sprite, (item2.position))
+    main_window.blit(item3.sprite, (item3.position))
     main_window.blit(guard.sprite, (guard.x, guard.y))
+    main_window.blit(player.sprite, (player.x, player.y))
 
     # --- Debug ---
     # print('px : ' + str(guard.x) + ', ' + str(guard.y))
@@ -67,6 +77,5 @@ while game_loop:
             if event.key == K_UP: player.move('up')
             if event.key == K_DOWN: player.move('down')
 
-        
 
     pygame.display.flip()

@@ -141,8 +141,23 @@ class Guardian(Character):
     
 
 class Item:
-    def __init__(self, sprite, level):
-        self.sprite = pygame.image.load(sprite_item).convert()
+    def __init__(self, item_type, level):
+        self.sprite = pygame.image.load(sprite_end).convert()
         self.level = level
-        self.index_position = random.randrange(0,len(level.item_placeholder))
+        self.index_position = random.randrange(0,len(self.level.item_placeholder))
+        self.position = self.level.item_placeholder.pop(self.index_position)
+        self.item_type = item_type
+        self.is_drop = False
 
+    def create(self):
+        if self.item_type == 'tube':
+            print('create tube')
+            spr = sprite_item
+        elif self.item_type == 'produit':
+            print('create produit')
+            spr = sprite_item
+        elif self.item_type == 'aiguille':
+            print("Create aiguille")
+            spr = sprite_item
+        
+        self.sprite = pygame.image.load(spr).convert()
