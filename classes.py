@@ -23,7 +23,6 @@ class Level: # Level creation class
                     if sprite != '\n': # ignore line break
                         line_content.append(sprite) # add sprite to file_content
                 file_content.append(line_content) # add line to file_content
-
         return file_content # Save structure
     
     def gen_level(self, window):
@@ -101,6 +100,13 @@ class Player(Character):
     def up_border_collision(self): # Test if player collide with screen upper border
         if (self.index_y > 0) : return False
         return True
+    
+    def test_item_place(self):
+        for item in Item.instances:
+            if item.position == (self.x, self.y) and item.is_drop == False:
+                print('There is an item')
+                item.drop()
+
 
     def test_if_tile_is_a_wall(self, ind_y, ind_x):
         if self.level.structure[ind_y][ind_x] == 'w':
@@ -134,6 +140,8 @@ class Player(Character):
         self.index_x = int(self.x / TILE_SIZE)
         self.index_y = int(self.y / TILE_SIZE)
 
+        self.test_item_place()
+
 
 class Guardian(Character):
     def __init__(self, sprite, level, position):
@@ -141,6 +149,8 @@ class Guardian(Character):
     
 
 class Item:
+    instances = []
+
     def __init__(self, item_type, level):
         self.sprite = pygame.image.load(sprite_end).convert()
         self.level = level
@@ -159,5 +169,14 @@ class Item:
         elif self.item_type == 'aiguille':
             print("Create aiguille")
             spr = sprite_item
-        self.sprite = pygame.image.load(spr).convert()        
+        self.sprite = pygame.image.load(spr).convert()
+        Item.instances.append(self)
+    
+    def drop(self):
+        self.is_drop = True
+        if self.is_drop:
+            self.sprite = pygame.image.load(sprite_end).convert()
+
+
+
         

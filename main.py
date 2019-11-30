@@ -1,24 +1,10 @@
-"""
-    1 - Créer le cadre de départ
-
-        Initialisez un repo Git et envoyez-le sur Github.
-        Commencez par créer le labyrinthe sans l’interface graphique. Quand la logique de votre labyrinthe est faite, 
-    utilisez le module PyGame pour dessiner l’interface graphique.
-        Puis intéressez-vous aux trois éléments principaux du jeu : le gardien, MacGyver et les objets. Comment les représenter dans votre programme ? 
-    Où sont-ils placés au commencement du jeu ? 
-
-    2 - Animer le personnage
-
-        Le seul élément mouvant est MacGyver. Créez les méthodes de classe qui permettent de l'animer et de trouver la sortie. 
-    Pour l'instant, faites une version simplifiée du jeu dans laquelle MacGyver gagne en arrivant face au gardien.
- 
-    3 - Récupérer les objets
-
-        Ajoutez la gestion des objets. Comment MacGyver les ramasse-t-il ?  Ajoutez également un compteur qui les listera.
- 
-    4 - Gagner !
-
-        Enfin, changez la fin du jeu : MacGyver gagne s'il a bien ramassé tous les objets et endormi le garde. Sinon, il perd.
+"""*
+    TO DO : 
+        - Redimensionner les sprites Openclassrooms
+        - Créer un fichier / Class 
+        - Appliquer PEP8
+        - Ajouter Player Inventory
+        - Fin du jeu (victoire ou défaite)
 """
 
 import pygame
@@ -28,11 +14,9 @@ from pygame.locals import *
 from constants import *
 from classes import *
 
-items = []
 def create_item(item_type):
     item = Item(item_type, level)
     item.create()
-    items.append(item)
 
 pygame.init()
 
@@ -54,8 +38,8 @@ guard = Guardian(sprite_guard, level, level.end_position)
 create_item('tube')
 create_item('produit')
 create_item('aiguille')
-print('Nb items in Level : ' + str(len(items)))
-print(items)
+print('Nb items in Level : ' + str(len(Item.instances)))
+print(Item.instances)
 
 # Main Loop (Game Loop)
 game_loop = True
@@ -63,7 +47,7 @@ while game_loop:
     
     level.gen_level(main_window)
 
-    for item in items:
+    for item in Item.instances:
       main_window.blit(item.sprite, (item.position))
     main_window.blit(guard.sprite, (guard.x, guard.y))
     main_window.blit(player.sprite, (player.x, player.y))
@@ -82,6 +66,5 @@ while game_loop:
             if event.key == K_LEFT: player.move('left')
             if event.key == K_UP: player.move('up')
             if event.key == K_DOWN: player.move('down')
-
 
     pygame.display.flip()
