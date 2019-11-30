@@ -28,6 +28,12 @@ from pygame.locals import *
 from constants import *
 from classes import *
 
+items = []
+def create_item(item_type):
+    item = Item(item_type, level)
+    item.create()
+    items.append(item)
+
 pygame.init()
 
 # Pygame Main Window
@@ -44,21 +50,21 @@ player = Player(sprite_player, level, level.begin_position)
 # Create Guardian
 guard = Guardian(sprite_guard, level, level.end_position)
 
-item1 = Item('tube',level)
-item1.create()
-item2 = Item('produit',level)
-item2.create()
-item3 = Item('aiguille',level)
-item3.create()
+# Items Creation
+create_item('tube')
+create_item('produit')
+create_item('aiguille')
+print('Nb items in Level : ' + str(len(items)))
+print(items)
 
 # Main Loop (Game Loop)
 game_loop = True
 while game_loop:
     
     level.gen_level(main_window)
-    main_window.blit(item1.sprite, (item1.position))
-    main_window.blit(item2.sprite, (item2.position))
-    main_window.blit(item3.sprite, (item3.position))
+
+    for item in items:
+      main_window.blit(item.sprite, (item.position))
     main_window.blit(guard.sprite, (guard.x, guard.y))
     main_window.blit(player.sprite, (player.x, player.y))
 

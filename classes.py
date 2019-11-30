@@ -159,5 +159,5 @@ class Item:
         elif self.item_type == 'aiguille':
             print("Create aiguille")
             spr = sprite_item
+        self.sprite = pygame.image.load(spr).convert()        
         
-        self.sprite = pygame.image.load(spr).convert()
