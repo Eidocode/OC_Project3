@@ -39,7 +39,6 @@ create_item('tube')
 create_item('produit')
 create_item('aiguille')
 print('Nb items in Level : ' + str(len(Item.instances)))
-print(Item.instances)
 
 # Main Loop (Game Loop)
 game_loop = True

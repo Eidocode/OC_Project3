@@ -80,6 +80,7 @@ class Character:
 class Player(Character):
     def __init__(self, sprite, level, position):
         super().__init__(sprite, level, position)
+        self.inventory = []
 
     @property
     def right_border_collision(self): # Test if player collide with screen right border
@@ -105,8 +106,17 @@ class Player(Character):
         for item in Item.instances:
             if item.position == (self.x, self.y) and item.is_drop == False:
                 print('There is an item')
+                print(item.item_type + ' dropped')
+                self.put_to_inventory(item)
                 item.drop()
-
+    
+    def put_to_inventory(self, item):
+        print('add ' + item.item_type + ' to Player inventory.')
+        self.inventory.append(item)
+        print('There is ' + str(len(self.inventory)) + ' items in Player inventory.')
+        if len(self.inventory) == 3:
+            print('Creation de la seringue')
+        
 
     def test_if_tile_is_a_wall(self, ind_y, ind_x):
         if self.level.structure[ind_y][ind_x] == 'w':
@@ -174,9 +184,11 @@ class Item:
     
     def drop(self):
         self.is_drop = True
-        if self.is_drop:
-            self.sprite = pygame.image.load(sprite_end).convert()
+        self._destroy
 
-
-
-        
+    @property
+    def _destroy(self):
+        print(str(self) + ' has been destroyed.')
+        Item.instances.remove(self)
+        print('Nb items in Level : ' + str(len(Item.instances)))
+        del self
