@@ -68,6 +68,7 @@ class Character:
         # Character pixel position
         self.x = position[0]
         self.y = position[1]
+        self.position = position
         # Character index position (on level structure)
         self.index_x = int(self.x / TILE_SIZE)
         self.index_y = int(self.y / TILE_SIZE)
@@ -80,7 +81,11 @@ class Character:
 class Player(Character):
     def __init__(self, sprite, level, position):
         super().__init__(sprite, level, position)
-        self.inventory = []
+        # Init Player Inventory
+        self.inventory = Inventory(self.level, self)
+        # Used for guardian interaction
+        self.is_weak = True
+
 
     @property
     def right_border_collision(self): # Test if player collide with screen right border
@@ -105,19 +110,9 @@ class Player(Character):
     def test_item_place(self):
         for item in Item.instances:
             if item.position == (self.x, self.y) and item.is_drop == False:
-                print('There is an item')
-                print(item.item_type + ' dropped')
-                self.put_to_inventory(item)
-                item.drop()
+                print(item.item_type + ' dropped and stored in inventory')
+                self.inventory.store_item(item)
     
-    def put_to_inventory(self, item):
-        print('add ' + item.item_type + ' to Player inventory.')
-        self.inventory.append(item)
-        print('There is ' + str(len(self.inventory)) + ' items in Player inventory.')
-        if len(self.inventory) == 3:
-            print('Creation de la seringue')
-        
-
     def test_if_tile_is_a_wall(self, ind_y, ind_x):
         if self.level.structure[ind_y][ind_x] == 'w':
             return True
@@ -147,6 +142,7 @@ class Player(Character):
             elif direction == 'down': self.y += TILE_SIZE  # move on next tile (vertical)
             elif direction == 'up': self.y -= TILE_SIZE  # move on previous tile (vertical)
 
+        self.position = (self.x, self.y)
         self.index_x = int(self.x / TILE_SIZE)
         self.index_y = int(self.y / TILE_SIZE)
 
@@ -156,7 +152,6 @@ class Player(Character):
 class Guardian(Character):
     def __init__(self, sprite, level, position):
         super().__init__(sprite, level, position)
-    
 
 class Item:
     instances = []
@@ -179,6 +174,9 @@ class Item:
         elif self.item_type == 'aiguille':
             print("Create aiguille")
             spr = sprite_item
+        elif self.item_type == 'seringue':
+            print("Create syringe")
+            spr = sprite_item_s
         self.sprite = pygame.image.load(spr).convert()
         Item.instances.append(self)
     
@@ -192,3 +190,28 @@ class Item:
         Item.instances.remove(self)
         print('Nb items in Level : ' + str(len(Item.instances)))
         del self
+
+class Inventory:
+
+    def __init__(self, level, player):
+        self.content = []
+        self.level = level
+        self.player = player
+
+    def store_item(self, item):
+        print('store ' + item.item_type + ' to Player inventory.')
+        self.content.append(item)
+        item.drop()
+        self.get_content()
+        if item.item_type == 'seringue':
+            self.player.is_weak = False
+    
+    def get_content(self):
+        print('There is ' + str(len(self.content)) + ' items in Player inventory.')
+        for item in self.content:
+            print(item.item_type)
+        if len(self.content) == 3:
+            self.content = []
+            syringe = Item('seringue', self.level)
+            syringe.create()
+            print(Item.instances)        
