@@ -1,18 +1,19 @@
 """*
     TO DO : 
         - Redimensionner les sprites Openclassrooms
-        - Créer un fichier / Class 
+        - Créer un fichier / Class (OK)
         - Appliquer PEP8
-        - Ajouter Player Inventory
-        - Fin du jeu (victoire ou défaite)
+        - Ajouter Player Inventory (OK)
+        - Fin du jeu (victoire ou défaite) (OK)
 """
-
 import pygame
 import random
 
 from pygame.locals import *
 from constants import *
-from classes import *
+from character import *
+from item import *
+from level import *
 
 def create_item(item_type):
     item = Item(item_type, level)
@@ -20,26 +21,29 @@ def create_item(item_type):
 
 def check_victory():
     if not player.is_weak and player.position == guard.position:
+        print('*************')
         print('The guard has been asleep, you escaped from the maze')
         print('Congratulation, YOU WIN !!')
+        print('*************')
         return True
     elif player.is_weak and player.position == guard.position:
+        print('*************')
         print('The guard killed you')
         print('You lose ...')
+        print('*************')
         return True
 
 pygame.init()
 
 # Pygame Main Window
 main_window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
 # Pygame Main Window Custom
 pygame.display.set_caption(TITLE_WINDOW)
-
 
 # Main Loop (Game Loop)
 game_window = True
 while game_window:
+    print('Loading...')
     # Create level structure
     level = Level(LVL_LABYRINTH)
     level.gen_level(main_window)
@@ -52,7 +56,8 @@ while game_window:
     create_item('produit')
     create_item('aiguille')
     print('Nb items in Level : ' + str(len(Item.instances)))
-
+    print('...Ready')
+    
     game_loop = True
     while game_loop:
         level.gen_level(main_window)
