@@ -44,6 +44,8 @@ pygame.display.set_caption(TITLE_WINDOW)
 game_window = True
 while game_window:
     print('Loading...')
+    # Init. Item list
+    Item.instances_in_level = []
     # Create level structure
     level = Level(LVL_LABYRINTH)
     level.gen_level(main_window)
@@ -52,17 +54,18 @@ while game_window:
     # Create Guardian
     guard = Guardian(sprite_guard, level, level.end_position)
     # Items Creation
-    create_item('tube')
-    create_item('produit')
-    create_item('aiguille')
-    print('Nb items in Level : ' + str(len(Item.instances)))
+    create_item(Type.TUBE)
+    create_item(Type.PRODUIT)
+    create_item(Type.AIGUILLE)
+
+    print('Nb items in Level : ' + str(len(Item.instances_in_level)))
     print('...Ready')
     
     game_loop = True
     while game_loop:
         level.gen_level(main_window)
 
-        for item in Item.instances:
+        for item in Item.instances_in_level:
             main_window.blit(item.sprite, (item.position))
         main_window.blit(guard.sprite, (guard.x, guard.y))
         main_window.blit(player.sprite, (player.x, player.y))
@@ -81,6 +84,5 @@ while game_window:
         
         if check_victory():
             game_loop = False
-            Item.instances = []
 
         pygame.display.flip()

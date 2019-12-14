@@ -48,9 +48,9 @@ class Player(Character):
         return True
     
     def test_item_place(self):
-        for item in Item.instances:
+        for item in Item.instances_in_level:
             if item.position == (self.x, self.y) and item.is_drop == False:
-                print(item.item_type + ' dropped and stored in inventory')
+                print(item.item_type.name + ' dropped')
                 self.inventory.store_item(item)
     
     def test_if_tile_is_a_wall(self, ind_y, ind_x):
