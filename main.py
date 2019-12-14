@@ -17,6 +17,7 @@ from constants import *
 from character import *
 from item import *
 from level import *
+from ui import *
 
 def create_item(item_type):
     item = Item(item_type, level)
@@ -52,6 +53,7 @@ while game_window:
     # Create level structure
     level = Level(LVL_LABYRINTH)
     level.gen_level(main_window)
+    ui = UI()
     # Create Player
     player = Player(sprite_player, level, level.begin_position)
     # Create Guardian
@@ -67,6 +69,7 @@ while game_window:
     game_loop = True
     while game_loop:
         level.gen_level(main_window)
+        ui.draw(main_window)
 
         for item in Item.instances_in_level:
             main_window.blit(item.sprite, (item.position))
