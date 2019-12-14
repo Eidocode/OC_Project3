@@ -1,10 +1,13 @@
 """*
     TO DO : 
-        - Redimensionner les sprites Openclassrooms
-        - Créer un fichier / Class (OK)
+        - Redimensionner/Ajouter les sprites Openclassrooms
         - Appliquer PEP8
-        - Ajouter Player Inventory (OK)
-        - Fin du jeu (victoire ou défaite) (OK)
+        - Modifier Item Seringue
+        - Revoir Item Instances (OK)
+        - Voir Enum pour class Item (OK)
+        - Ajout des commentaires de classe
+        - Supprimer branches git inutiles (OK)
+        - Ajout du requirements.txt sous Git
 """
 import pygame
 import random

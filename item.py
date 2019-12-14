@@ -35,7 +35,7 @@ class Item:
         elif self.item_type.value == 4:
             print("Create syringe")
             spr = sprite_item_s
-        self.sprite = pygame.image.load(spr).convert()
+        self.sprite = pygame.image.load(spr).convert_alpha()
         Item.instances_in_level.append(self)
     
     def drop(self):
