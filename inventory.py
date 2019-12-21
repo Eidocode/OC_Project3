@@ -1,4 +1,7 @@
+import pygame 
+
 from item import *
+from ui import *
 
 class Inventory:
 
@@ -10,6 +13,7 @@ class Inventory:
     def store_item(self, item):
         print('store ' + item.item_type.name + ' to Player inventory.')
         self.content.append(item)
+        UI.draw_in_slot(item)
         item.drop()
         self.get_content()
         if item.item_type.value == 4:

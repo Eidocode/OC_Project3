@@ -53,7 +53,6 @@ while game_window:
     # Create level structure
     level = Level(LVL_LABYRINTH)
     level.gen_level(main_window)
-    ui = UI()
     # Create Player
     player = Player(sprite_player, level, level.begin_position)
     # Create Guardian
@@ -69,7 +68,7 @@ while game_window:
     game_loop = True
     while game_loop:
         level.gen_level(main_window)
-        ui.draw(main_window)
+        player.ui.draw()
 
         for item in Item.instances_in_level:
             main_window.blit(item.sprite, (item.position))
