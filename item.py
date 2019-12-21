@@ -15,27 +15,29 @@ class Item:
     instances_in_level = []
 
     def __init__(self, item_type, level):
-        self.sprite = pygame.image.load(sprite_end).convert()
+        self.sprite = pygame.image.load(sprite_item).convert_alpha()
+        self.ui_icon = sprite_item_s
         self.level = level
         self.index_position = random.randrange(0,len(self.level.item_placeholder))
         self.position = self.level.item_placeholder.pop(self.index_position)
         self.item_type = item_type
+        self.is_draw_ui = False
         self.is_drop = False
 
     def create(self):
         if self.item_type.value == 1:
             print('create tube')
-            spr = sprite_item
+            spr = sprite_tube
         elif self.item_type.value == 2:
             print('create produit')
-            spr = sprite_item
+            spr = sprite_ether
         elif self.item_type.value == 3:
             print("Create aiguille")
-            spr = sprite_item
+            spr = sprite_aiguille
         elif self.item_type.value == 4:
             print("Create syringe")
-            spr = sprite_item_s
-        self.sprite = pygame.image.load(spr).convert_alpha()
+            spr = sprite_seringue
+        self.ui_icon = spr
         Item.instances_in_level.append(self)
     
     def drop(self):

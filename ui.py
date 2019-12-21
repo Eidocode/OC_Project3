@@ -3,21 +3,22 @@ import pygame
 from constants import *
 
 class Slot:
-    SLOT_SIZE = 64
 
     def __init__(self):
         self.sprite_slot = pygame.image.load(sprite_placeholder).convert_alpha()
+        self.remove_sprite_in_slot = pygame.image.load(sprite_placeholder).convert()
+        self.size = 64
         self.x = 0
         self.y = 0
         self.is_empty = True
     
 
 class UI:
-    INV_SLOT_SIZE = 64
     list_slot_ui = []
 
-    def __init__(self, player):
+    def __init__(self, player, window):
         self.player = player
+        self.window = window
         self.nb_inv_slot = 3
         self.slot_pos_x = 16
         self.slot_pos_y = TILE_SIZE*15 + 16
@@ -26,15 +27,36 @@ class UI:
             slot.x = self.slot_pos_x
             slot.y = self.slot_pos_y
             UI.list_slot_ui.append(slot)
-            self.slot_pos_x += UI.INV_SLOT_SIZE + 10
+            self.slot_pos_x += slot.size + 10
 
-    def draw(self, ):
-        print(len(UI.list_slot_ui))
+    @property
+    def add_special_slot(self):
+        slot = Slot()
+        slot.x = 258
+        slot.y = self.slot_pos_y
+        return slot
+
+    def add_icon_in_slot(self, icon, slot):
+        spr = pygame.image.load(icon).convert_alpha()
+        self.window.blit(spr, (slot.x + 8, slot.y + 8))
+
+    def draw(self):
+        special_slot = self.add_special_slot # ADD Special Item Slot
+        self.window.blit(special_slot.sprite_slot, (special_slot.x, special_slot.y)) 
+        self.add_icon_in_slot(sprite_seringue, special_slot)
+
         for slot in UI.list_slot_ui:
             self.window.blit(slot.sprite_slot, (slot.x, slot.y))
-    
-    def draw_in_slot(self, item):
-        for slot in UI.list_slot_ui:
-            if slot.is_empty:
-                slot.is_empty = False
-                self.window.blit(item.sprite, (slot.x, slot.y))
+            if len(self.player.inventory.content) > 0:
+                for item in self.player.inventory.content:
+                    if slot.is_empty:
+                        if not item.is_draw_ui:
+                            slot.is_empty = False
+                            item.is_draw_ui = True
+                            self.add_icon_in_slot(item.ui_icon, slot)
+            else:
+                self.window.blit(slot.remove_sprite_in_slot, (slot.x, slot.y))
+
+
+        
+        

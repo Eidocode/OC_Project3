@@ -53,6 +53,10 @@ class Player(Character):
                 print(item.item_type.name + ' dropped')
                 self.inventory.store_item(item)
     
+    def check_items_in_inventory(self):
+        if self.inventory.combine_items:
+            self.inventory.combine_items_in_inventory()
+    
     def test_if_tile_is_a_wall(self, ind_y, ind_x):
         if self.level.structure[ind_y][ind_x] == 'w':
             return True
@@ -87,6 +91,7 @@ class Player(Character):
         self.index_y = int(self.y / TILE_SIZE)
 
         self.test_item_place()
+        self.check_items_in_inventory()
 
 
 class Guardian(Character):

@@ -55,6 +55,8 @@ while game_window:
     level.gen_level(main_window)
     # Create Player
     player = Player(sprite_player, level, level.begin_position)
+    # UI
+    ui = UI(player, main_window)
     # Create Guardian
     guard = Guardian(sprite_guard, level, level.end_position)
     # Items Creation
@@ -68,7 +70,7 @@ while game_window:
     game_loop = True
     while game_loop:
         level.gen_level(main_window)
-        player.ui.draw()
+        ui.draw()
 
         for item in Item.instances_in_level:
             main_window.blit(item.sprite, (item.position))
