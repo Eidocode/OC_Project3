@@ -42,8 +42,9 @@ class UI:
 
     def draw(self):
         special_slot = self.add_special_slot # ADD Special Item Slot
-        self.window.blit(special_slot.sprite_slot, (special_slot.x, special_slot.y)) 
-        self.add_icon_in_slot(sprite_seringue, special_slot)
+        self.window.blit(special_slot.sprite_slot, (special_slot.x, special_slot.y))
+        if not self.player.is_weak :
+            self.add_icon_in_slot(sprite_seringue, special_slot)
 
         for slot in UI.list_slot_ui:
             self.window.blit(slot.sprite_slot, (slot.x, slot.y))

@@ -1,13 +1,13 @@
 """*
     TO DO : 
-        - Redimensionner/Ajouter les sprites Openclassrooms
+        - Redimensionner/Ajouter les sprites Openclassrooms (OK)
         - Appliquer PEP8
-        - Modifier Item Seringue
+        - Modifier Item Seringue (en cours)
         - Revoir Item Instances (OK)
         - Voir Enum pour class Item (OK)
         - Ajout des commentaires de classe
         - Supprimer branches git inutiles (OK)
-        - Ajout du requirements.txt sous Git
+        - Ajout du requirements.txt sous Git (OK)
 """
 import pygame
 import random

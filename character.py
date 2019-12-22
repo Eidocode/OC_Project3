@@ -90,8 +90,8 @@ class Player(Character):
         self.index_x = int(self.x / TILE_SIZE)
         self.index_y = int(self.y / TILE_SIZE)
 
-        self.test_item_place()
         self.check_items_in_inventory()
+        self.test_item_place()
 
 
 class Guardian(Character):
