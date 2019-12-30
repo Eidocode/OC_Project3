@@ -25,18 +25,18 @@ class Item:
         self.is_drop = False
 
     def create(self):
-        if self.item_type.value == 1:
+        if self.item_type == Type.TUBE:
             print('create tube')
             spr = sprite_tube
-        elif self.item_type.value == 2:
+        elif self.item_type == Type.PRODUIT:
             print('create produit')
             spr = sprite_ether
-        elif self.item_type.value == 3:
+        elif self.item_type == Type.AIGUILLE:
             print("Create aiguille")
             spr = sprite_aiguille
-        elif self.item_type.value == 4:
-            print("Create syringe")
-            spr = sprite_seringue
+        # elif self.item_type.value == Type.SERINGUE:
+        #     print("Create syringe")
+        #     spr = sprite_seringue
         self.ui_icon = spr
         Item.instances_in_level.append(self)
     

@@ -36,15 +36,19 @@ class UI:
         slot.y = self.slot_pos_y
         return slot
 
-    def add_icon_in_slot(self, icon, slot):
+    def add_icon_in_slot(self, icon, alpha, slot):
         spr = pygame.image.load(icon).convert_alpha()
+        spr.set_alpha(alpha)
         self.window.blit(spr, (slot.x + 8, slot.y + 8))
 
     def draw(self):
         special_slot = self.add_special_slot # ADD Special Item Slot
         self.window.blit(special_slot.sprite_slot, (special_slot.x, special_slot.y))
-        if not self.player.is_weak :
-            self.add_icon_in_slot(sprite_seringue, special_slot)
+        if self.player.inventory.combine_items:
+            self.add_icon_in_slot(sprite_seringue, 128, special_slot)
+        else:
+            self.window.blit(special_slot.remove_sprite_in_slot, (special_slot.x, special_slot.y))
+            
 
         for slot in UI.list_slot_ui:
             self.window.blit(slot.sprite_slot, (slot.x, slot.y))
@@ -54,10 +58,6 @@ class UI:
                         if not item.is_draw_ui:
                             slot.is_empty = False
                             item.is_draw_ui = True
-                            self.add_icon_in_slot(item.ui_icon, slot)
+                            self.add_icon_in_slot(item.ui_icon, 20, slot)
             else:
                 self.window.blit(slot.remove_sprite_in_slot, (slot.x, slot.y))
-
-
-        
-        

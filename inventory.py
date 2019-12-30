@@ -16,7 +16,7 @@ class Inventory:
         self.content.append(item)
         item.drop()
         self.get_content()
-        if item.item_type.value == 4:
+        if self.combine_items == True:
             self.player.is_weak = False
     
     def get_content(self):
@@ -24,13 +24,4 @@ class Inventory:
         for item in self.content:
             print(item.item_type.name)
         if len(self.content) == 3:
-            self.content = []
             self.combine_items = True
-            print("Inventory is empty..")
-    
-    def combine_items_in_inventory(self):
-        syringe = Item(Type.SERINGUE, self.level)
-        syringe.create()
-        self.store_item(syringe)
-        print(Item.instances_in_level)
-        self.combine_items = False
