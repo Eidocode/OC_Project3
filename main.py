@@ -1,11 +1,11 @@
 """*
     TO DO : 
         - Appliquer PEP8
-        - Modifier Item Seringue (en cours)
+        - Modifier Item Seringue (OK)
         - Ajout des commentaires de classe
         - Corriger Item.TYPE (OK)
-        - Corriger Special Slot
-        - Ajouter Aspect Graphique Victoire/Défaite
+        - Corriger Special Slot (OK)
+        - Ajouter Aspect Graphique Victoire/Défaite (OK)
         - Voir si Enum est utilisable dans les autres classes
 """
 import pygame
@@ -31,6 +31,7 @@ def display_text(window, str_text, color, size, px = int(SCREEN_WIDTH/2), py=int
 def check_victory():
     if not player.is_weak and player.position == guard.position:
         player_win = True
+        main_window.blit(bg_dark, (0,0))
         print('*************')
         print('The guard has been asleep, you escaped from the maze')
         print('Congratulation, YOU WIN !!')
@@ -39,6 +40,7 @@ def check_victory():
         return True
     elif player.is_weak and player.position == guard.position:
         player_win = False
+        main_window.blit(bg_dark, (0,0))
         print('*************')
         print('The guard killed you')
         print('You lose ...')
@@ -46,14 +48,13 @@ def check_victory():
         display_text(main_window, "YOU LOSE !!!", (255,0,0), 40)
         return True
     
-
 pygame.init()
-
 # Pygame Main Window
 main_window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # Pygame Main Window Custom
 pygame.display.set_caption(TITLE_WINDOW)
-
+# Dark Background IMG
+bg_dark = pygame.image.load(background_dark).convert_alpha()
 
 # Main Loop (Game Loop)
 game_window = True
@@ -103,8 +104,9 @@ while game_window:
                 if event.key == K_DOWN: player.move('down')
         
         if check_victory():
+            
             key_text = "Press ENTER to reload or ESC to escape the game"
-            display_text(main_window, key_text, (51,204,0) , 26, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT*0.7))
+            display_text(main_window, key_text, (51,204,0), 26, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT*0.7))
             game_loop = False
             end_pause = True
         
