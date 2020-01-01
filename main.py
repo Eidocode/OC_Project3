@@ -104,7 +104,6 @@ while game_window:
                 if event.key == K_DOWN: player.move('down')
         
         if check_victory():
-            
             key_text = "Press ENTER to reload or ESC to escape the game"
             display_text(main_window, key_text, (51,204,0), 26, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT*0.7))
             game_loop = False
