@@ -1,7 +1,15 @@
 import pygame
+import random
 
 from pygame.locals import *
 from constants import *
+
+class Tile:
+    tiles_in_level = []
+
+    def __init__(self):
+        self.position = (0, 0)
+        self.sprite = pygame.image.load(sprite_path_1).convert()
 
 class Level: # Level creation class
     def __init__(self, file):
@@ -30,30 +38,41 @@ class Level: # Level creation class
         tile_y = 0
         # Loads sprites used for level generation
         begin = pygame.image.load(sprite_begin).convert()
-        wall = pygame.image.load(sprite_wall).convert()
+        wall_1 = pygame.image.load(sprite_wall_1).convert()
+        wall_2 = pygame.image.load(sprite_wall_2).convert()
         end = pygame.image.load(sprite_end).convert()
-        path = pygame.image.load(sprite_path).convert()
+        path_1 = pygame.image.load(sprite_path_1).convert()
+        path_2 = pygame.image.load(sprite_path_2).convert()
+
+        walls = [wall_1, wall_2]
+        paths = [path_1, path_2]
 
         for line in self.structure: # Scan level structure
             tile_x = 0 # Reset tile_x
-            
             for sprite in line: # Scan sprite in line
+                tile = Tile()
                 # Check sprite ('b': Begin, 'w' : Wall, 'e' : end)
                 if sprite == 'b':
-                    tile_position = (tile_x, tile_y)
-                    self.begin_position = tile_position
-                    tile = begin
+                    tile.position = (tile_x, tile_y)
+                    self.begin_position = tile.position
+                    tile.sprite = begin
                 elif sprite == 'w':
-                    tile_position = (tile_x, tile_y)
-                    tile = wall
+                    tile.position = (tile_x, tile_y)
+                    wall_index = random.randrange(0, len(walls))
+                    tile.sprite = walls[wall_index]
                 elif sprite == 'e':
-                    tile_position = (tile_x, tile_y)
-                    self.end_position = tile_position
-                    tile = end
+                    tile.position = (tile_x, tile_y)
+                    self.end_position = tile.position
+                    tile.sprite = end
                 elif sprite == '0':
-                    tile_position = (tile_x, tile_y)
-                    self.item_placeholder.append(tile_position)
-                    tile = path
-                window.blit(tile, tile_position) # apply sprite in window at tile_position 
+                    tile.position = (tile_x, tile_y)
+                    self.item_placeholder.append(tile.position)
+                    path_index = random.randrange(0, len(paths))
+                    tile.sprite = paths[path_index]
+                Tile.tiles_in_level.append(tile)
                 tile_x += TILE_SIZE # move to the next tile on x-axis
             tile_y += TILE_SIZE # move to the next tile on y-axis
+
+    def draw(self, window):
+        for tile in Tile.tiles_in_level:
+            window.blit(tile.sprite, tile.position) # apply sprite in window at tile_position 

@@ -47,8 +47,6 @@ class UI:
             self.window.blit(spr_lifebar_full, (x+offset, y))
         elif lifebar_type == 1:
             self.window.blit(spr_lifebar_weak, (x+offset, y))
-        elif lifebar_type == 2:
-            self.window.blit(spr_lifebar_empty, (x+offset, y))
 
     def add_icon_in_slot(self, icon, slot):
         spr = pygame.image.load(icon).convert_alpha()

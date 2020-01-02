@@ -39,6 +39,8 @@ def check_victory():
         display_text(main_window, "Congratulations !!! YOU WIN !!!", (255,204,0), 40)    
         return True
     elif player.is_weak and player.position == guard.position:
+        player.sprite = pygame.image.load(sprite_grave).convert_alpha()
+        player.x = player.x - TILE_SIZE
         player_win = False
         main_window.blit(bg_dark, (0,0))
         print('*************')
@@ -83,13 +85,11 @@ while game_window:
     end_pause = False
     game_loop = True
     while game_loop:
-        level.gen_level(main_window)
+        level.draw(main_window)
         ui.draw()
-        
+
         for item in Item.instances_in_level:
             main_window.blit(item.sprite, (item.position))
-        main_window.blit(guard.sprite, (guard.x, guard.y))
-        main_window.blit(player.sprite, (player.x, player.y))
 
         for event in pygame.event.get():
             # If player want to quit the game, game_loop = False
@@ -109,6 +109,8 @@ while game_window:
             game_loop = False
             end_pause = True
         
+        main_window.blit(guard.sprite, (guard.x, guard.y))
+        main_window.blit(player.sprite, (player.x, player.y))
         pygame.display.flip()
         
     while end_pause:
