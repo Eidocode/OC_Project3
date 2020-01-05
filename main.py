@@ -18,10 +18,12 @@ from item import Type, Item
 from level import Level
 from ui import UI
 
+
 def create_item(item_type):
     """ Function used to instanciate items """
     itm = Item(item_type, level)
     itm.create()
+
 
 def display_text(window, str_text, p_color, size,
                  p_x=int(const.SCREEN_WIDTH/2), p_y=int(const.GAME_SCREEN_HEIGHT/2), font=None):
@@ -30,6 +32,7 @@ def display_text(window, str_text, p_color, size,
     text = font.render(str_text, 1, p_color)
     text_rect = text.get_rect(center=(p_x, p_y))
     window.blit(text, text_rect)
+
 
 def check_victory():
     """ End Game, victory or defeat conditions.. """
@@ -40,8 +43,8 @@ def check_victory():
     if player.is_weak and player.position == guard.position:
         # Replace player sprite by grave sprite
         player.sprite = pygame.image.load(const.sprite_grave).convert_alpha()
-        player.x = player.x - const.TILE_SIZE # Return to previous Tile position
-        MAIN_WINDOW.blit(BG_DARK, (0, 0)) # Apply BG_DARK
+        player.x = player.x - const.TILE_SIZE  # Return to previous Tile position
+        MAIN_WINDOW.blit(BG_DARK, (0, 0))  # Apply BG_DARK
         display_text(MAIN_WINDOW, "YOU LOSE !!!", const.RED_COLOR, 40)
         return True
 
@@ -54,7 +57,7 @@ pygame.display.set_caption(const.TITLE_WINDOW)
 BG_DARK = pygame.image.load(const.background_dark).convert_alpha()
 
 game_window = True
-while game_window: # Main Loop
+while game_window:  # Main Loop
     print('Loading...')
     # Init. Item list
     Item.instances_in_level = []
@@ -79,13 +82,13 @@ while game_window: # Main Loop
     # Init Booleans
     end_pause = False
     game_loop = True
-    while game_loop: # Game Loop
-        level.draw(MAIN_WINDOW) # Draw Level
-        ui.draw() # Draw UI
+    while game_loop:  # Game Loop
+        level.draw(MAIN_WINDOW)  # Draw Level
+        ui.draw()  # Draw UI
 
-        MAIN_WINDOW.blit(guard.sprite, (guard.x, guard.y)) # Draw Guardian
+        MAIN_WINDOW.blit(guard.sprite, (guard.x, guard.y))  # Draw Guardian
         for item in Item.instances_in_level:
-            MAIN_WINDOW.blit(item.sprite, (item.position)) # Draw Items
+            MAIN_WINDOW.blit(item.sprite, (item.position))  # Draw Items
 
         for event in pygame.event.get():
             # Events management
@@ -105,7 +108,7 @@ while game_window: # Main Loop
                 if event.key == K_DOWN:
                     player.move('down')
 
-        if check_victory(): # end game conditions
+        if check_victory():  # end game conditions
             KEY_TEXT = "Press ENTER to reload or ESC to escape the game"
             display_text(MAIN_WINDOW, KEY_TEXT, const.GREEN_COLOR, 26,
                          int(const.SCREEN_WIDTH/2), int(const.SCREEN_HEIGHT*0.7))
@@ -115,7 +118,7 @@ while game_window: # Main Loop
         MAIN_WINDOW.blit(player.sprite, (player.x, player.y))
         pygame.display.flip()
 
-    while end_pause: # End Game Pause Loop
+    while end_pause:  # End Game Pause Loop
         for event in pygame.event.get():
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                 end_pause = False

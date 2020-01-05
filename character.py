@@ -35,8 +35,8 @@ class Player(Character):
     """
     def __init__(self, sprite, level, position):
         super().__init__(sprite, level, position)
-        self.inventory = Inventory(self.level, self) # Init Player Inventory
-        self.is_weak = True # Used for guardian interaction (winning condition)
+        self.inventory = Inventory(self.level, self)  # Init Player Inventory
+        self.is_weak = True  # Used for guardian interaction (winning condition)
 
     @property
     def right_border_collision(self):
@@ -93,12 +93,12 @@ class Player(Character):
         else:
             collide = True
 
-        return collide # Return collide state
+        return collide  # Return collide state
 
     def move(self, direction):
         """ Player move to 'direction' if there is no collision """
-        test_collision = self.test_collision(direction) # Return if player collide in this direction
-        if not test_collision: # Test collide and move if possible
+        test_collision = self.test_collision(direction)  # True if collide in this direction
+        if not test_collision:  # Test collide and move if possible
             if direction == 'right':
                 self.x += TILE_SIZE
             elif direction == 'left':
@@ -108,12 +108,12 @@ class Player(Character):
             elif direction == 'up':
                 self.y -= TILE_SIZE
 
-        self.position = (self.x, self.y) # Update player pixel coordinates
+        self.position = (self.x, self.y)  # Update player pixel coordinates
         # Update index x position (to use with level.structure)
         self.index_x = int(self.x / TILE_SIZE)
         self.index_y = int(self.y / TILE_SIZE)
 
-        self.test_item_place() # Check if there is an item
+        self.test_item_place()  # Check if there is an item
 
 
 class Guardian(Character):
