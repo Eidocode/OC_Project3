@@ -1,78 +1,88 @@
-import pygame
 import random
 
-from pygame.locals import *
-from constants import *
+import pygame
+import constants as const
+
 
 class Tile:
+    """
+        Instances of this class are used in Level class and represents an element of the game.
+        Each instance contains the position (x, y) and sprite of the tile. There is also a class
+        variable 'tiles_in_level' where instances are stored.
+    """
     tiles_in_level = []
 
     def __init__(self):
         self.position = (0, 0)
-        self.sprite = pygame.image.load(sprite_path_1).convert()
+        self.sprite = pygame.image.load(const.sprite_path_1).convert()
 
-class Level: # Level creation class
+class Level:
+    """
+        Level is generated here. '_read_level' method is first used to get level structure stored
+        in a '.lvl' file. Then, this structure is stored in a variable and interpreted in a method
+        called 'gen_level'.
+        For each element of the structure, a tile is instanciated then a sprite and a position
+        assigned to this tile instance. The tile is then stored in 'tiles_in_level' which will be
+        used for rendering the tiles sprites in 'draw' method.
+    """
     def __init__(self, file):
-        self.file = file
-        self.structure = []
-        self.begin_position = []
-        self.end_position = []
-        self.item_placeholder = []
+        self.file = file # File where structure is stored
+        self.structure = [] # Used to store level structure
+        self.begin_position = [] # Level Begin position
+        self.end_position = [] # Level End position
+        self.item_location = [] # Store locations where items can spawn
 
     @property
-    def _read_level(self): # Get file content (*.lvl) and stock in a list (file_content)
+    def _read_level(self):
+        """ Get file content (*.lvl) and store structure in a list (file_content) """
         with open(self.file, "r") as file:
             file_content = []
             for line in file: # Scan lines in file
                 line_content = []
-                for sprite in line: # Scan sprites in line
+                for sprite in line: # Scan each element in line
                     if sprite != '\n': # ignore line break
-                        line_content.append(sprite) # add sprite to file_content
-                file_content.append(line_content) # add line to file_content
-        return file_content # Save structure
-    
-    def gen_level(self, window):
+                        line_content.append(sprite) # add element to line_content
+                file_content.append(line_content) # add line_content to file_content
+        return file_content # Return structure
+
+    def gen_level(self):
+        """ Assigns location and sprite of each tile according to the level structure """
         self.structure = self._read_level # Apply _read_level to structure
         # Init. tile position (x, y)
         tile_x = 0
         tile_y = 0
-        # Loads sprites used for level generation
-        begin = pygame.image.load(sprite_begin).convert()
-        wall_1 = pygame.image.load(sprite_wall_1).convert()
-        wall_2 = pygame.image.load(sprite_wall_2).convert()
-        end = pygame.image.load(sprite_end).convert()
-        path_1 = pygame.image.load(sprite_path_1).convert()
-        path_2 = pygame.image.load(sprite_path_2).convert()
+        # Loads sprites
+        begin = pygame.image.load(const.sprite_begin).convert()
+        end = pygame.image.load(const.sprite_end).convert()
+        walls = [pygame.image.load(const.sprite_wall_1).convert(),
+                 pygame.image.load(const.sprite_wall_2).convert()]
+        paths = [pygame.image.load(const.sprite_path_1).convert(),
+                 pygame.image.load(const.sprite_path_2).convert()]
 
-        walls = [wall_1, wall_2]
-        paths = [path_1, path_2]
-
-        for line in self.structure: # Scan level structure
+        for line in self.structure: # Scan lines in level structure
             tile_x = 0 # Reset tile_x
             for sprite in line: # Scan sprite in line
-                tile = Tile()
-                # Check sprite ('b': Begin, 'w' : Wall, 'e' : end)
+                tile = Tile() # Create a tile
+                tile.position = (tile_x, tile_y)
+                # Check sprite ('b': Begin, 'w' : Wall, 'e' : end, '0' : path)
                 if sprite == 'b':
-                    tile.position = (tile_x, tile_y)
                     self.begin_position = tile.position
                     tile.sprite = begin
                 elif sprite == 'w':
-                    tile.position = (tile_x, tile_y)
                     wall_index = random.randrange(0, len(walls))
                     tile.sprite = walls[wall_index]
                 elif sprite == 'e':
-                    tile.position = (tile_x, tile_y)
                     self.end_position = tile.position
                     tile.sprite = end
                 elif sprite == '0':
-                    tile.position = (tile_x, tile_y)
-                    self.item_placeholder.append(tile.position)
                     path_index = random.randrange(0, len(paths))
                     tile.sprite = paths[path_index]
+                    self.item_location.append(tile.position)
                 Tile.tiles_in_level.append(tile)
-                tile_x += TILE_SIZE # move to the next tile on x-axis
-            tile_y += TILE_SIZE # move to the next tile on y-axis
+                tile_x += const.TILE_SIZE # move to the next tile on x-axis
+            tile_y += const.TILE_SIZE # move to the next tile on y-axis
 
     def draw(self, window):
+        """ Used to draw each tile stored in 'tiles_in_level' """
         for tile in Tile.tiles_in_level:
-            window.blit(tile.sprite, tile.position) # apply sprite in window at tile_position 
+            window.blit(tile.sprite, tile.position) # apply sprite in window at tile_position
