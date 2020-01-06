@@ -7,7 +7,8 @@ from item import Item
 
 class Character:
     """
-        Main class. Contains the sprite to display, coordinates (x, y) and some level informations..
+    Main class. Contains the sprite to display, coordinates (x, y) and some
+    level informations..
     """
     def __init__(self, sprite, level, position):
         # Character sprite
@@ -29,14 +30,15 @@ class Character:
 class Player(Character):
     """
         Inherits from Character.
-        Contains instance of Inventory class and a variable (is_weak) used for winning condition.
-        There is also collisions tests (borders and walls) and items interaction. This tests are
-        used when the player want to move in a direction.
+        Contains instance of Inventory class and a variable (is_weak) used for
+        winning condition. There is also collisions tests (borders and walls)
+        and items interaction. This tests are used when the player want to
+        move in a direction.
     """
     def __init__(self, sprite, level, position):
         super().__init__(sprite, level, position)
         self.inventory = Inventory(self.level, self)  # Init Player Inventory
-        self.is_weak = True  # Used for guardian interaction (winning condition)
+        self.is_weak = True  # guardian interaction (winning condition)
 
     @property
     def right_border_collision(self):
@@ -73,7 +75,7 @@ class Player(Character):
                 print(item.item_type.name + ' dropped')
                 self.inventory.store_item(item)
 
-    def test_if_tile_is_a_wall(self, ind_y, ind_x):
+    def test_tile_as_a_wall(self, ind_y, ind_x):
         """ Check if Tile with coordinates ind_y, ind_x is a Wall """
         if self.level.structure[ind_y][ind_x] == 'w':
             return True
@@ -83,13 +85,13 @@ class Player(Character):
         """ Test all collisions(Borders and walls) and return True or False """
         collide = False
         if direction == 'right' and not self.right_border_collision:
-            collide = self.test_if_tile_is_a_wall(self.index_y, self.index_x + 1)
+            collide = self.test_tile_as_a_wall(self.index_y, self.index_x + 1)
         elif direction == 'left' and not self.left_border_collision:
-            collide = self.test_if_tile_is_a_wall(self.index_y, self.index_x - 1)
+            collide = self.test_tile_as_a_wall(self.index_y, self.index_x - 1)
         elif direction == 'down' and not self.down_border_collision:
-            collide = self.test_if_tile_is_a_wall(self.index_y + 1, self.index_x)
+            collide = self.test_tile_as_a_wall(self.index_y + 1, self.index_x)
         elif direction == 'up' and not self.up_border_collision:
-            collide = self.test_if_tile_is_a_wall(self.index_y - 1, self.index_x)
+            collide = self.test_tile_as_a_wall(self.index_y - 1, self.index_x)
         else:
             collide = True
 
@@ -97,7 +99,7 @@ class Player(Character):
 
     def move(self, direction):
         """ Player move to 'direction' if there is no collision """
-        test_collision = self.test_collision(direction)  # True if collide in this direction
+        test_collision = self.test_collision(direction)  # True if collide
         if not test_collision:  # Test collide and move if possible
             if direction == 'right':
                 self.x += TILE_SIZE
@@ -118,7 +120,8 @@ class Player(Character):
 
 class Guardian(Character):
     """
-        Just inherits from Character without additional method. But, it's possible, later..
+    Just inherits from Character without additional method. But, it's possible,
+    later..
     """
     def __init__(self, sprite, level, position):
         super().__init__(sprite, level, position)
