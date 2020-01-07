@@ -29,11 +29,12 @@ class Item:
     instances_in_level = []
 
     def __init__(self, item_type, level):
-        self.sprite = pygame.image.load(const.spr_item).convert_alpha()
-        self.ui_icon = const.spr_item_s  # Sprite used in UI Inventory
+        self.sprite = pygame.image.load(const.SPR_ITEM).convert_alpha()
+        self.ui_icon = const.SPR_ITEM_S  # Sprite used in UI Inventory
         self.level = level
         # Generate a random index linked to 'item_location' list
-        self.index_position = random.randrange(0, len(self.level.item_location))
+        self.index_position = random.randrange(0,
+                                               len(self.level.item_location))
         # Assigns to 'position' the element identified by 'index_position'
         #  of 'item_location' list.
         self.position = self.level.item_location.pop(self.index_position)
@@ -46,13 +47,13 @@ class Item:
         item_type and add it to the class variable (instances_in_level) """
         if self.item_type == Type.TUBE:
             print('create tube')
-            spr = const.spr_tube
+            spr = const.SPR_TUBE
         elif self.item_type == Type.ETHER:
             print('create ether')
-            spr = const.spr_ether
+            spr = const.SPR_ETHER
         elif self.item_type == Type.NEEDLE:
             print("Create needle")
-            spr = const.spr_needle
+            spr = const.SPR_NEEDLE
         self.ui_icon = spr  # Assigns sprite to ui_icon
         Item.instances_in_level.append(self)  # Add to 'instances_in_level'
 

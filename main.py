@@ -1,12 +1,3 @@
-"""
-    TO DO :
-        - Appliquer PEP8 (en cours)
-        - Modifier Item Seringue (OK)
-        - Ajout des commentaires de classe (OK)
-        - Corriger Item.TYPE (OK)
-        - Corriger Special Slot (OK)
-        - Ajouter Aspect Graphique Victoire/Défaite (OK)
-"""
 import pygame
 
 from pygame.locals import *
@@ -43,7 +34,7 @@ def check_victory():
         return True
     if player.is_weak and player.position == guard.position:
         # Replace player sprite by grave sprite
-        player.sprite = pygame.image.load(const.spr_grave).convert_alpha()
+        player.sprite = pygame.image.load(const.SPR_GRAVE).convert_alpha()
         player.x = player.x - const.TILE_SIZE  # Previous Tile position
         MAIN_WINDOW.blit(BG_DARK, (0, 0))  # Apply BG_DARK
         txt = "YOU LOSE !!!"
@@ -56,7 +47,7 @@ MAIN_WINDOW = pygame.display.set_mode((const.SCR_WIDTH, const.SCR_HEIGHT))
 # Pygame Main Window Title
 pygame.display.set_caption(const.TITLE_WINDOW)
 # Dark Background
-BG_DARK = pygame.image.load(const.background_dark).convert_alpha()
+BG_DARK = pygame.image.load(const.BG_DARK).convert_alpha()
 
 game_window = True
 while game_window:  # Main Loop
@@ -69,12 +60,12 @@ while game_window:  # Main Loop
     level = Level(const.LVL_LABYRINTH)
     level.gen_level()
     # Create Player
-    player = Player(const.spr_player, level, level.begin_position)
+    player = Player(const.SPR_PLAYER, level, level.begin_position)
     # UI
     ui = UI(player, MAIN_WINDOW)
     ui.init_ui()
     # Create Guardian
-    guard = Guardian(const.spr_guard, level, level.end_position)
+    guard = Guardian(const.SPR_GUARD, level, level.end_position)
     # Items Creation
     create_item(Type.TUBE)
     create_item(Type.ETHER)

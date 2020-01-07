@@ -15,7 +15,7 @@ class Tile:
 
     def __init__(self):
         self.position = (0, 0)
-        self.sprite = pygame.image.load(const.spr_path_1).convert()
+        self.sprite = pygame.image.load(const.SPR_PATH_1).convert()
 
 
 class Level:
@@ -57,12 +57,12 @@ class Level:
         tile_x = 0
         tile_y = 0
         # Loads sprites
-        begin = pygame.image.load(const.spr_begin).convert()
-        end = pygame.image.load(const.spr_end).convert()
-        walls = [pygame.image.load(const.spr_wall_1).convert(),
-                 pygame.image.load(const.spr_wall_2).convert()]
-        paths = [pygame.image.load(const.spr_path_1).convert(),
-                 pygame.image.load(const.spr_path_2).convert()]
+        begin = pygame.image.load(const.SPR_BEGIN).convert()
+        end = pygame.image.load(const.SPR_END).convert()
+        walls = [pygame.image.load(const.SPR_WALL_1).convert(),
+                 pygame.image.load(const.SPR_WALL_2).convert()]
+        paths = [pygame.image.load(const.SPR_PATH_1).convert(),
+                 pygame.image.load(const.SPR_PATH_2).convert()]
 
         for line in self.structure:  # Scan lines in level structure
             tile_x = 0  # Reset tile_x

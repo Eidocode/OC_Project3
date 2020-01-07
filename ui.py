@@ -8,8 +8,8 @@ class Slot:
     or not. There is slot size, position and state (empty or not)
     """
     def __init__(self):
-        self.sprite_slot = pygame.image.load(const.spr_slot).convert_alpha()
-        self.empty_sprite_slot = pygame.image.load(const.spr_slot).convert()
+        self.sprite_slot = pygame.image.load(const.SPR_SLOT).convert_alpha()
+        self.empty_sprite_slot = pygame.image.load(const.SPR_SLOT).convert()
         self.size = const.UI_SLOT_SIZE
         self.x = 0
         self.y = 0
@@ -45,7 +45,7 @@ class UI:
     def add_special_slot(self):
         """ Method used to create the special slot """
         slot = Slot()
-        slot.sprite_slot = pygame.image.load(const.spr_sp_slot).convert_alpha()
+        slot.sprite_slot = pygame.image.load(const.SPR_SP_SLOT).convert_alpha()
         slot.x = const.UI_SLOT_SIZE * 8
         slot.y = self.slot_pos_y
         return slot
@@ -53,8 +53,8 @@ class UI:
     def add_char_picture(self, sprite, x, y, lifebar_type):
         """ Add picture and lifebar at the specified location (x, y) """
         spr_picture = pygame.image.load(sprite).convert_alpha()
-        spr_lifebar_full = pygame.image.load(const.spr_lifebar_full).convert_alpha()
-        spr_lifebar_weak = pygame.image.load(const.spr_lifebar_weak).convert_alpha()
+        spr_lifebar_full = pygame.image.load(const.SPR_LIFEBAR_FULL).convert()
+        spr_lifebar_weak = pygame.image.load(const.SPR_LIFEBAR_WEAK).convert()
         offset = 50
 
         self.window.blit(spr_picture, (x, y))
@@ -77,7 +77,7 @@ class UI:
         self.window.blit(special_slot.sprite_slot,
                          (special_slot.x, special_slot.y))  # Draw Special Slot
         if self.player.inventory.combine_items:
-            self.add_icon_in_slot(const.spr_seringue, special_slot)
+            self.add_icon_in_slot(const.SPR_SYRINGE, special_slot)
         else:
             self.window.blit(special_slot.empty_sprite_slot,
                              (special_slot.x, special_slot.y))
@@ -104,12 +104,12 @@ class UI:
         picture_ui_pos_y = const.UI_SLOT_POS_Y + const.OFFSET_CENTER_SLOT
 
         if not self.player.is_weak:
-            self.add_char_picture(const.spr_ui_mcgyver,
+            self.add_char_picture(const.SPR_UI_MCGYVER,
                                   player_ui_pos_x, picture_ui_pos_y, 0)
-            self.add_char_picture(const.spr_ui_guard,
+            self.add_char_picture(const.SPR_UI_GUARD,
                                   guard_ui_pos_x, picture_ui_pos_y, 1)
         else:
-            self.add_char_picture(const.spr_ui_mcgyver,
+            self.add_char_picture(const.SPR_UI_MCGYVER,
                                   player_ui_pos_x, picture_ui_pos_y, 1)
-            self.add_char_picture(const.spr_ui_guard,
+            self.add_char_picture(const.SPR_UI_GUARD,
                                   guard_ui_pos_x, picture_ui_pos_y, 0)
