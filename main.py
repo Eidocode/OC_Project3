@@ -1,4 +1,5 @@
 import pygame
+import os
 
 from pygame.locals import *
 
@@ -41,6 +42,10 @@ def check_victory():
         display_text(MAIN_WINDOW, txt, const.RED_COLOR, 40)
         return True
 
+
+# Centered game window
+os.environ['SDL_VIDEO_CENTERED'] = '1'
+# PyGame Initialization
 pygame.init()
 # Pygame Main Window
 MAIN_WINDOW = pygame.display.set_mode((const.SCR_WIDTH, const.SCR_HEIGHT))
