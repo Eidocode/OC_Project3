@@ -4,8 +4,8 @@ import constants as const
 
 class Slot:
     """
-    Instanciated in UI class. Contains the sprite slot depending on it is empty
-    or not. There is slot size, position and state (empty or not)
+    Instanciated in UI class. Contains the sprite slot depending on it's empty
+    or not. There are slot size, position and state (empty or not)
     """
     def __init__(self):
         self.sprite_slot = pygame.image.load(const.SPR_SLOT).convert_alpha()

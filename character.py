@@ -32,7 +32,7 @@ class Player(Character):
         Inherits from Character.
         Contains instance of Inventory class and a variable (is_weak) used for
         winning condition. There is also collisions tests (borders and walls)
-        and items interaction. This tests are used when the player want to
+        and items interaction. These tests are used when the player wants to
         move in a direction.
     """
     def __init__(self, sprite, level, position):
@@ -42,41 +42,41 @@ class Player(Character):
 
     @property
     def right_border_collision(self):
-        """ Test if player collide with screen right border """
+        """ Test if player collides with screen right border """
         if self.index_x < self.length_struct_x - 1:
             return False
         return True
 
     @property
     def left_border_collision(self):
-        """ Test if player collide with screen left border """
+        """ Test if player collides with screen left border """
         if self.index_x > 0:
             return False
         return True
 
     @property
     def down_border_collision(self):
-        """ Test if player collide with screen bottom border """
+        """ Test if player collides with screen bottom border """
         if self.index_y < self.length_struct_y - 1:
             return False
         return True
 
     @property
     def up_border_collision(self):
-        """ Test if player collide with screen upper border """
+        """ Test if player collides with screen upper border """
         if self.index_y > 0:
             return False
         return True
 
     def test_item_place(self):
-        """ Check if there is an item on player position and interact """
+        """ Check if there is an item on player position then interact """
         for item in Item.instances_in_level:
             if item.position == (self.x, self.y) and not item.is_drop:
                 print(item.item_type.name + ' dropped')
                 self.inventory.store_item(item)
 
     def test_tile_as_a_wall(self, ind_y, ind_x):
-        """ Check if Tile with coordinates ind_y, ind_x is a Wall """
+        """ Check if Tile position (ind_y, ind_x) is a wall """
         if self.level.structure[ind_y][ind_x] == 'w':
             return True
         return False
@@ -98,7 +98,7 @@ class Player(Character):
         return collide  # Return collide state
 
     def move(self, direction):
-        """ Player move to 'direction' if there is no collision """
+        """ Player moves to 'direction' if there is no collision """
         test_collision = self.test_collision(direction)  # True if collide
         if not test_collision:  # Test collide and move if possible
             if direction == 'right':
@@ -120,7 +120,7 @@ class Player(Character):
 
 class Guardian(Character):
     """
-    Just inherits from Character without additional method. But, it's possible,
+    Inherits only from Character without additional method. But, it's possible
     later..
     """
     def __init__(self, sprite, level, position):

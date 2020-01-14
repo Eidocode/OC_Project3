@@ -7,9 +7,9 @@ import constants as const
 class Tile:
     """
     Instances of this class are used in Level class and represents an element
-    of the game. Each instance contains the position (x, y) and sprite of the
-    tile. There is also a class variable 'tiles_in_level' where instances are
-    stored.
+    of the game. Each instance contains the position (x, y) and the tile
+    sprite. There is also a class variable 'tiles_in_level' where instances
+    are stored.
     """
     tiles_in_level = []
 

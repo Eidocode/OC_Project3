@@ -22,9 +22,9 @@ class Item:
     and an ui_icon (used in ui.py) that is used in UI inventory when player
     picked up this item.There is also a random position used to place the item
     in the maze. 'is_draw_ui' variable is used in ui.py when 'ui_icon' has been
-    drawn in UI Inventory. 'is_drop' variable is used in Player class
-    (character.py) to picking up the item. Class variable (instances_in_level)
-    contains Item instances and used to draw item sprite in main.py.
+    drawn in UI Inventory. 'is_drop' variable is used in Player class for
+    picking up the item. Class variable (instances_in_level) contains Item
+    instances and used to draw item sprite in main.py.
     """
     instances_in_level = []
 
@@ -65,7 +65,7 @@ class Item:
 
     @property
     def _destroy(self):
-        """ Called in pick_up method. Remove this instance itself and from
+        """ Called in pick_up method. Removes this instance itself and from
         'instances_in_level'. """
         print(str(self) + ' has been destroyed.')
         Item.instances_in_level.remove(self)  # Remove in 'instances_in_level'
