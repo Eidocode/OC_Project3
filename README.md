@@ -14,3 +14,7 @@ Il est donc préférable de cloner le repo **git** dans un environnement virtuel
 
 Il est possible d'installer toutes les dépendances avec la commande suivante : **pip3 install -r requirements.txt**
 L'exécution se fait depuis le fichier principal **main.py**
+
+## Arborescence du projet
+Le projet est découpé en différentes parties :
+      - Le fichier **main.py** contient 
